@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Random Homer Image</title>
+    <style>
+      body {
+        background-color: #292929;
+        color: white;
+        font-family: Arial, sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      
+      button, #home-button {
+        background-color: #ffffff;
+        color: #292929;
+        border: 2px solid #ffffff;
+        padding: 10px 20px;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      
+      button:hover, #home-button:hover {
+        background-color: #555555;
+        border-color: #555555;
+        color: #ffffff;
+      }
+      
+      h1 {
+        font-size: 32px;
+        margin-bottom: 30px;
+      }
+      
+      #image-container {
+        display: none;
+      }
+      
+      #home-button {
+        margin-top: 20px;
+        display: none;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <h1>Random Homer</h1>
+    <button id="random-png-button">Show Homer</button>
+    <div id="image-container"></div>
+    <button id="home-button">Back</button>
+    
+    <script>
+      const button = document.getElementById("random-png-button");
+      const imageContainer = document.getElementById("image-container");
+      const homeButton = document.getElementById("home-button");
+      const fileNames = ["Homer-1.png", "Homer-2.png", "Homer-3.png", "Homer-4.png", "Homer-5.png", "Homer-6.png", "Homer-7.png"];
+      
+      button.addEventListener("click", function() {
+        const randomIndex = Math.floor(Math.random() * fileNames.length);
+        const randomFileName = fileNames[randomIndex];
+        const img = document.createElement("img");
+        img.src = "./Images/" + randomFileName;
+        img.style.maxWidth = "100%";
+        imageContainer.innerHTML = "";
+        imageContainer.appendChild(img);
+        button.style.display = "none";
+        homeButton.style.display = "block";
+        imageContainer.style.display = "block";
+      });
+      
+      homeButton.addEventListener("click", function() {
+        location.reload();
+      });
+    </script>
+  </body>
+</html>
