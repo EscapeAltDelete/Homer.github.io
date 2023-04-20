@@ -60,8 +60,16 @@
       const imageContainer = document.getElementById("image-container");
       const homeButton = document.getElementById("home-button");
       const fileNames = ["Homer-1.png", "Homer-2.png", "Homer-3.png", "Homer-4.png", "Homer-5.png", "Homer-6.png", "Homer-7.png" , "Homer-8.png" , "Homer-9.png", "Homer-10.png", "Homer-11.png", "Homer-12.png", "Homer-13.png", "Homer-14.png", "Homer-15.png", "Homer-16.png", "Homer-17.png" ];
+      const cookieName = "lastVisit";
       
       button.addEventListener("click", function() {
+        if (!canAccess()) {
+          alert("You can only access this page once every hour.");
+          return;
+        }
+        
+        setLastVisit();
+        
         const randomIndex = Math.floor(Math.random() * fileNames.length);
         const randomFileName = fileNames[randomIndex];
         const img = document.createElement("img");
@@ -77,6 +85,11 @@
       homeButton.addEventListener("click", function() {
         location.reload();
       });
-    </script>
-  </body>
-</html>
+      
+      function canAccess() {
+        const lastVisit = getCookie(cookieName);
+        if (!lastVisit) {
+          return true;
+        }
+        const now = new Date().getTime();
+        return (now - lastVisit) >= 3600000
