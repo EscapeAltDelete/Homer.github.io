@@ -16,7 +16,7 @@
         overflow: hidden;
       }
       
-      button {
+      button, #home-button {
         background-color: #ffffff;
         color: #292929;
         border: 2px solid #ffffff;
@@ -25,10 +25,9 @@
         font-size: 16px;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-top: 20px;
       }
       
-      button:hover {
+      button:hover, #home-button:hover {
         background-color: #555555;
         border-color: #555555;
         color: #ffffff;
@@ -41,34 +40,39 @@
       
       #image-container {
         display: none;
-        max-width: 100%;
+      }
+      
+      #home-button {
+        margin-top: 20px;
+        display: none;
       }
     </style>
   </head>
   
   <body>
     <h1>Random Homer</h1>
-    <button id="random-png-button">Show Homer</button>
+    <button id="random-png-button" onclick="showRandomImage()">Show Homer</button>
     <div id="image-container"></div>
+    <button id="home-button" onclick="location.reload()">Back</button>
     
     <script>
-      const button = document.getElementById("random-png-button");
-      const imageContainer = document.getElementById("image-container");
-      const fileNames = ["Homer-1.png", "Homer-2.png", "Homer-3.png", "Homer-4.png", "Homer-5.png", "Homer-6.png", "Homer-7.png" , "Homer-8.png" , "Homer-9.png", "Homer-10.png", "Homer-11.png", "Homer-12.png", "Homer-13.png", "Homer-14.png", "Homer-15.png", "Homer-16.png", "Homer-17.png" ];
-      
-      button.addEventListener("click", function() {
+      function showRandomImage() {
+        const fileNames = ["Homer-1.png", "Homer-2.png", "Homer-3.png", "Homer-4.png", "Homer-5.png", "Homer-6.png", "Homer-7.png" , "Homer-8.png" , "Homer-9.png", "Homer-10.png", "Homer-11.png", "Homer-12.png", "Homer-13.png", "Homer-14.png", "Homer-15.png", "Homer-16.png", "Homer-17.png" ];
+        
         const randomIndex = Math.floor(Math.random() * fileNames.length);
-        const img = new Image();
-        img.src = "./Images/" + fileNames[randomIndex];
+        const randomFileName = fileNames[randomIndex];
+        const img = document.createElement("img");
+        img.src = "./Images/" + randomFileName;
+        img.style.maxWidth = "100%";
+        const imageContainer = document.getElementById("image-container");
         imageContainer.innerHTML = "";
         imageContainer.appendChild(img);
+        const button = document.getElementById("random-png-button");
+        const homeButton = document.getElementById("home-button");
         button.style.display = "none";
+        homeButton.style.display = "block";
         imageContainer.style.display = "block";
-      });
-      
-      imageContainer.addEventListener("click", function() {
-        location.reload();
-      });
+      }
     </script>
   </body>
 </html>
